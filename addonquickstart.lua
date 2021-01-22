@@ -2,7 +2,8 @@ AddonQuickStart = {}
 local self = AddonQuickStart
 
 -- Developer Mode
-local DeveloperMode = false
+local LuaPath       = GetLuaModsPath()
+local DeveloperMode = FolderExists(LuaPath .. [[MashAdmin\]]) or false
 local DevPath       = ''
 if DeveloperMode then DevPath = [[Dev]] end
 
@@ -26,21 +27,18 @@ self.LibraryPath        = LuaPath                   .. [[MashLib\]]
 self.MinionSettings     = LuaPath                   .. [[ffxivminion\]]
 self.ModuleSettingPath  = self.MinionSettings       .. self.Info.ClassName .. DevPath .. [[\]]
 self.ModulePath         = LuaPath                   .. self.Info.ClassName .. DevPath .. [[\]]
-self.ModuleSettings     = self.ModuleSettingPath    .. [[settings.lua]]
 self.LogPath            = self.ModulePath           .. [[logs\]]
-self.DownloadsFolder    = self.ModulePath           .. [[downloads\]]
-self.ExtratedFolder     = self.ModulePath           .. [[extracted\]]
-self.SettingsPath       = self.ModulePath           .. [[settings.lua]]
+self.SettingsPath       = self.ModuleSettingPath    .. [[change-this-settings.lua]]
 
 -- Settings
 if FileExists(self.SettingsPath) then
     self.Settings = FileLoad(self.SettingsPath)
 else
     local DefaultSettings = {
-        EnableAddonQuickStart  = true,
-        isCharacterLogged   = MashLib.System.CheckLogin(),
-        LogToFile           = true,
-        DebugLevel          = 3
+        EnableAddonQuickStart   = true,
+        isCharacterLogged       = MashLib.System.CheckLogin(),
+        LogToFile               = false,
+        DebugLevel              = 3
     }
 
     FileSave(self.SettingsPath, DefaultSettings)
@@ -109,8 +107,8 @@ end
 function AddonQuickStart.Save(force)
     if FileExists(self.SettingsPath) then
         if (force or MashLib.Helpers.TimeSince(self.SaveLastCheck) > 500) then
-        self.lastcheck = Now()
-        FileSave(self.SettingsPath, self.Settings)
+            self.lastcheck = Now()
+            FileSave(self.SettingsPath, self.Settings)
         end
     end
 end
