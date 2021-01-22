@@ -3,8 +3,10 @@ local self = AddonQuickStart
 
 -- Developer Mode
 local LuaPath       = GetLuaModsPath()
+-- Check if a folder named MashAdmin exists, if so, all paths that leads to your library or addons will have a "Dev" at the end.
+-- eg. MashLibDev\, MashProfilesDev\
 local DeveloperMode = FolderExists(LuaPath .. [[MashAdmin\]]) or false
-local DevPath       = ''
+local DevPath       = '' -- Keep this empty
 if DeveloperMode then DevPath = [[Dev]] end
 
 -- Info
@@ -22,11 +24,11 @@ self.Info = {
 }
 
 local LuaPath           = GetLuaModsPath()
-self.LibrarySettingPath = LuaPath                   .. [[ffxivminion\MashLib\]]
-self.LibraryPath        = LuaPath                   .. [[MashLib\]]
 self.MinionSettings     = LuaPath                   .. [[ffxivminion\]]
-self.ModuleSettingPath  = self.MinionSettings       .. self.Info.ClassName .. DevPath .. [[\]]
-self.ModulePath         = LuaPath                   .. self.Info.ClassName .. DevPath .. [[\]]
+self.ModulePath         = LuaPath                   .. self.Info.ClassName      .. DevPath .. [[\]]
+self.LibraryPath        = LuaPath                   .. [[MashLib]]              .. DevPath .. [[\]]
+self.ModuleSettingPath  = self.MinionSettings       .. self.Info.ClassName      .. DevPath .. [[\]]
+self.LibrarySettingPath = self.MinionSettings       .. [[MashLib]]              .. DevPath .. [[\]]
 self.LogPath            = self.ModulePath           .. [[logs\]]
 self.SettingsPath       = self.ModuleSettingPath    .. [[change-this-settings.lua]]
 
@@ -51,6 +53,7 @@ self.Helpers        = {}
 self.Misc           = {}
 self.SaveLastCheck  = Now()
 
+-- Params to show your addon in the ffxivminion's dropdown
 self.GUI = {
     name = self.Info.AddonName,
     NavName = self.Info.AddonName,
