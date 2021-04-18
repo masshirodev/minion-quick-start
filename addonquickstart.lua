@@ -110,7 +110,7 @@ end
 function AddonQuickStart.Save(force)
     if FileExists(self.SettingsPath) then
         if (force or MashLib.Helpers.TimeSince(self.SaveLastCheck) > 500) then
-            self.lastcheck = Now()
+            self.SaveLastCheck = Now()
             FileSave(self.SettingsPath, self.Settings)
         end
     end
