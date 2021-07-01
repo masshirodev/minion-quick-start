@@ -14,13 +14,13 @@ self.Info = {
     Author      = "Mash",
     AddonName   = "AddonQuickStart",
     ClassName   = "AddonQuickStart",
-	Version     = "0.0.1",
-	StartDate   = "11-01-2021",
-	LastUpdate  = "11-01-2021",
+    Version     = "0.0.1",
+    StartDate   = "11-01-2021",
+    LastUpdate  = "11-01-2021",
     Description = "AddonQuickStart",
-	ChangeLog = {
+    ChangeLog = {
         ["0.0.1"] = "Starting development"
-	}
+    }
 }
 
 local LuaPath           = GetLuaModsPath()
@@ -121,6 +121,10 @@ function AddonQuickStart.Init()
         -- Creates the folder structure
         if not FolderExists(self.LogPath) then
             FolderCreate(self.LogPath)
+        end
+
+        if not FolderExists(self.SettingsPath) then
+            FolderCreate(self.SettingsPath)
         end
 
         self.LogFile = self.LogPath .. MashLib.Helpers.GetTime() .. [[-log.txt]]
